@@ -48,12 +48,12 @@ The project was developed during the Next Level Week 5 event, provided by Rocket
 # :camera: Images
 
 <p>
-  <img src=".github/plantmanager-welcome.png" alt="PlantManager - Welcome" height="600" />
-  <img src=".github/plantmanager-username.png" alt="PlantManager - User name" height="600" />
-  <img src=".github/plantmanager-init.png" alt="PlantManager - Init" height="600" />
-  <img src=".github/plantmanager-saveplant.png" alt="PlantManager - Save plant" height="600" />
-  <img src=".github/plantmanager-confirmation.png" alt="PlantManager - Confirmation" height="600" />
-  <img src=".github/plantmanager-myplants.png" alt="PlantManager - My plants" height="600" />
+  <img src=".github/plantmanager-welcome.png" alt="PlantManager - Welcome" height="500" />
+  <img src=".github/plantmanager-username.png" alt="PlantManager - User name" height="500" />
+  <img src=".github/plantmanager-init.png" alt="PlantManager - Init" height="500" />
+  <img src=".github/plantmanager-saveplant.png" alt="PlantManager - Save plant" height="500" />
+  <img src=".github/plantmanager-confirmation.png" alt="PlantManager - Confirmation" height="500" />
+  <img src=".github/plantmanager-myplants.png" alt="PlantManager - My plants" height="500" />
 </p>
 
 # :seedling: How to run
