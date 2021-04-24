@@ -80,8 +80,8 @@ that opened after running the application and scan the QR Code in the Expo app.
 
 It is possible to use an emulator too.
 
-*The phone and your the computer must be connected in the same wifi network.*
-*It is necessary to change the IP in the package.json file (server section) and in the services/api.ts file (baseURL)*
+**The phone and your the computer must be connected in the same wifi network.**
+**It is necessary to change the IP in the package.json file (server section) and in the services/api.ts file (baseURL)**
 
 ### 📦 API
 
