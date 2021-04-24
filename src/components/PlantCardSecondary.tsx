@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 4,
     fontFamily: fonts.heading,
     fontSize: 17,
     color: colors.heading,

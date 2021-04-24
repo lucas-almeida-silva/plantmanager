@@ -24,7 +24,7 @@ import waterdropImage from '../assets/waterdrop.png';
 export function MyPlants() {
   const [myPlants, setMyPlants] = useState<StoragedPlant[]>([]);
   const [loading, setLoading] = useState(true);
-  const [nextWaterd, setNextWatered] = useState<string>();
+  const [nextWaterd, setNextWatered] = useState<string | null>();
 
   const navigation = useNavigation();
 
@@ -32,21 +32,33 @@ export function MyPlants() {
     async function loadStoragePlants() {
       const plantsStoraged = await loadPlant();
 
-      const nextTime = formatDistance(
-        new Date(plantsStoraged[0].dateTimeNotification).getTime(),
-        new Date().getTime(),
-        { locale: ptBR }
-      );
+      if (plantsStoraged.length) {
+        const nextTime = getDateTimeDistance(
+          plantsStoraged[0].dateTimeNotification,
+          new Date()
+        );
 
-      setNextWatered(
-        `Não esqueça de regar a ${plantsStoraged[0].name} à ${nextTime}.`
-      );
+        setNextWatered(
+          `Não esqueça de regar a ${plantsStoraged[0].name} à ${nextTime}.`
+        );
+      }
+
       setMyPlants(plantsStoraged);
       setLoading(false);
     }
 
     loadStoragePlants();
   }, []);
+
+  function getDateTimeDistance(initialDate: Date, finalDate: Date) {
+    const dateTimeDistanceFormated = formatDistance(
+      new Date(initialDate).getTime(),
+      new Date(finalDate).getTime(),
+      { locale: ptBR }
+    );
+
+    return dateTimeDistanceFormated;
+  }
 
   function handlePlantSelect(plant: Plant) {
     navigation.navigate('PlantSave', { plant });
@@ -64,9 +76,22 @@ export function MyPlants() {
           try {
             await removePlant(plant.id);
 
-            setMyPlants(oldData =>
-              oldData.filter(item => item.id !== plant.id)
-            );
+            const newPlantsArray = myPlants.filter(item => item.id !== plant.id);
+
+            setMyPlants(newPlantsArray)
+
+            setNextWatered(() => {
+              if(newPlantsArray.length) {
+                const nextTime = getDateTimeDistance(
+                  newPlantsArray[0].dateTimeNotification, 
+                  new Date()
+                );
+
+                return `Não esqueça de regar a ${newPlantsArray[0].name} à ${nextTime}.`
+              } else {
+                return null;
+              }
+            });
 
           } catch (error) {
             Alert.alert('Não foi possível remover! 😥')
@@ -84,17 +109,19 @@ export function MyPlants() {
     <View style={styles.container}>
       <Header />
 
-      <View style={styles.spotlight}>
-        <Image
-          source={waterdropImage}
-          style={styles.spotlightImage}
-        />
-        <Text style={styles.spotlightText}>
-          {nextWaterd}
-        </Text>
-      </View>
+      {nextWaterd && (
+        <View style={styles.spotlight}>
+          <Image
+            source={waterdropImage}
+            style={styles.spotlightImage}
+          />
+          <Text style={styles.spotlightText}>
+            {nextWaterd}
+          </Text>
+        </View>
+      )}
 
-      <View style={styles.plants}>
+      <View style={{ ...styles.plants, marginTop: !nextWaterd ? 20 : 0 }}>
         <Text style={styles.plantTitle}>
           Próximas regadas
         </Text>
@@ -113,6 +140,11 @@ export function MyPlants() {
               handleRemove={() => handleRemove(item)}
             />
           )}
+          ListEmptyComponent={(
+            <View style={styles.emptyPlantsContainer}>
+              <Text style={styles.emptyPlantsText}>Nenhum lembrete agendado</Text>
+            </View>
+          )}
           showsVerticalScrollIndicator={false}
           style={styles.nextWatereds}
         />
@@ -127,7 +159,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 30,
-    paddingTop: 50,
+    // paddingTop: 50,
     backgroundColor: colors.background,
   },
   spotlight: {
@@ -161,5 +193,15 @@ const styles = StyleSheet.create({
   nextWatereds: {
     flex: 1,
     marginBottom: 10,
+  },
+  emptyPlantsContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  emptyPlantsText: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontFamily: fonts.text,
   }
 });

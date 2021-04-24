@@ -13,7 +13,6 @@ import { EnvironmentButton } from '../components/EnvirontmentButton';
 import { PlantCardPrimary } from '../components/PlantCardPrimary';
 import { Load } from '../components/Load';
 
-import { Plant } from '../libs/storage';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import api from '../services/api';
@@ -21,6 +20,19 @@ import api from '../services/api';
 interface Environment {
   key: string;
   title: string;
+}
+
+interface Plant {
+  id: string;
+  name: string,
+  about: string;
+  water_tips: string;
+  photo: string;
+  environments: string[];
+  frequency: {
+    times: number,
+    repeat_every: string;
+  }
 }
 
 export function PlantSelect() {

@@ -17,21 +17,26 @@ import { format, isBefore } from 'date-fns';
 
 import { Button } from '../components/Button';
 
-import { Plant, savePlant } from '../libs/storage';
+import { Plant, savePlant, StoragedPlant } from '../libs/storage';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import waterdropImage from '../assets/waterdrop.png';
 
 interface RouteParams {
-  plant: Plant
+  plant: StoragedPlant
 }
 
 export function PlantSave() {
-  const [selectedDateTime, setSelectedDateTime] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
-
   const route = useRoute();
   const { plant } = route.params as RouteParams;
+
+  const [selectedDateTime, setSelectedDateTime] = useState(
+    plant.dateTimeNotification 
+      ? new Date(plant.dateTimeNotification)
+      : new Date()
+  );
+
+  const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
 
   const navigation = useNavigation()
 
