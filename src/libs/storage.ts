@@ -33,9 +33,9 @@ export async function savePlant(plant: Omit<StoragedPlant, 'hour'>): Promise<voi
     const now = new Date();
 
     const { times, repeat_every } = plant.frequency;
-
     if (repeat_every === 'week') {
       const interval = Math.trunc(7 / times);
+
       nextTime.setDate(now.getDate() + interval);
     } else {
       nextTime.setDate(nextTime.getDate() + 1);

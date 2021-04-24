@@ -13,11 +13,11 @@ import { useNavigation, useRoute } from '@react-navigation/core';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import { SvgFromUri } from 'react-native-svg';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
-import { format, isBefore } from 'date-fns';
+import { format } from 'date-fns';
 
 import { Button } from '../components/Button';
 
-import { Plant, savePlant, StoragedPlant } from '../libs/storage';
+import { savePlant, StoragedPlant } from '../libs/storage';
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import waterdropImage from '../assets/waterdrop.png';
@@ -46,12 +46,6 @@ export function PlantSave() {
     }
 
     if (dateTime) {
-      if (isBefore(dateTime, new Date())) {
-        setSelectedDateTime(new Date());
-        Alert.alert('Escolha uma hora no futuro! ⏰');
-        return;
-      }
-
       setSelectedDateTime(dateTime);
     }
   }
