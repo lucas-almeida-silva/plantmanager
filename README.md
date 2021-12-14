@@ -25,7 +25,7 @@ The project was developed during the Next Level Week 5 event, provided by Rocket
 
 - [React Native](https://reactnative.dev/)
 - [Expo](https://expo.io/)
-- [Typescript](https://www.typescriptlang.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 - [Json Server](https://github.com/typicode/json-server)
 
 # :page_with_curl: Requirements
